@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <style>
+      .mt-5 {
+        margin-top: 5rem !important;
+      }
+    </style>
+
+    <nav
+      class="navbar fixed-top navbar-expand-lg navbar-dark"
+      style="background-color:darkslateblue;"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/movies/search"
+          ><i
+            class="fas fa-shopping-basket"
+            style="margin-right: 10px; font-size: 1.7rem"
+          ></i
+          >Movie App</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" style="margin-top:5px;  font-size: 20px;" aria-current="page" href="/movies/search"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              
+              <a class="nav-link" style="font-size: 24px;"  href="home">Make Your PlayList</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="moviessearch">Search</a>
+            </li> -->
+          </ul>
+          <div class="navbar-nav ml-auto" style="display: flex; justify-content:space-between">
+            <a href="#" class="nav-link text-capitalize"
+              >Welcome User</a
+            >
+            <a href="/auth/logout" class="btn btn-dark">Logout</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1 class="text-center mt-5">Custom Movie List 's </h1>
+      <h3 class="mt-1">Create your custom  List</h3>
+      <form action="/lists/create" method="POST" class="mt-2">
+        <div class="form-group">
+          <label for="name">List name</label>
+          <input
+            type="text"
+            name="name"
+            class="form-control"
+            id="name"
+            placeholder="List name"
+            required
+          />
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            name="isPublic"
+            class="form-check-input"
+            id="isPublic"
+          />
+          <label class="form-check-label" for="isPublic"
+            >do you wanted to Public it ?</label
+          >
+        </div>
+        <button type="submit" class="btn btn-primary">Create List</button>
+      </form>
+      
+      <h2 class="text-center mt-2">Your Movie Lists</h2> <br>
+
+      <div class="alert alert-secondary" role="alert">
+        Click on Movie List To See Movies Inside It
+     </div>
+      <div class="list-group mt-3 ">
+        <% lists.forEach(list => { %>
+
+        <a
+          href="/lists/<%= list._id %>"
+          class="list-group-item list-group-item-action"
+        >
+          <h3 class="mb-1"><%= list.name %></h3>
+          <p class="mb-1"><%= list.isPublic ? 'Public' : 'Private' %></p>
+          <form action="/lists/delete" method="POST" class="mb-0">
+            <input type="hidden" name="listId" value="<%= list._id %>" />
+            <button type="submit" class="btn btn-danger">Delete List</button>
+          </form>
+        </a>
+        <!-- <form action="/lists/delete" method="POST" class="mb-0">
+          <input type="hidden" name="listId" value="<%= list._id %>" />
+          <button type="submit" class="btn btn-danger">Delete List</button>
+        </form> -->
+        <% }) %>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
